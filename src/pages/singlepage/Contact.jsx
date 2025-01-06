@@ -57,7 +57,7 @@ export const Contact = () => {
     <div className="flex flex-col items-start justify-center min-h-screen w-full">
       <AlertBar />
       <Navigation />
-      <div className="flex flex-wrap grow w-full content-center justify-center items-center py-10">
+      <div className="flex flex-wrap grow w-full content-center justify-center items-center px-5 py-10">
         <Breadcrumbs crumbs={crumbs} />
         <div className="border border-zinc-200 rounded container grid grid-cols-1 md:grid-cols-2 w-full bg-gray-100 shadow h-full items-center content-center">
           <div className="flex flex-wrap flex-col gap-4 py-14 px-10">

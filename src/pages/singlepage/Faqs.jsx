@@ -60,7 +60,7 @@ export const Faqs = () => {
     <div className="flex flex-col items-start justify-center min-h-screen w-full">
       <AlertBar />
       <Navigation />
-      <div className="flex flex-wrap grow w-full min-h-[800px] justify-center items-center py-10">
+      <div className="flex flex-wrap grow w-full min-h-[800px] justify-center items-center px-5 py-10">
         <Breadcrumbs crumbs={crumbs} />
         <div className="max-w-4xl w-full bg-white p-6">
           <div className="flex justify-center w-full py-5 mb-6">

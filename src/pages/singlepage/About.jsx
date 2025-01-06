@@ -13,7 +13,7 @@ export const About = () => {
     <div className="flex flex-col items-center content-center justify-center min-h-screen w-full">
       <AlertBar />
       <Navigation />
-      <div className="flex flex-wrap grow w-full content-center justify-center items-center py-10">
+      <div className="flex flex-wrap grow w-full content-center justify-center items-center px-5 py-10">
         <Breadcrumbs crumbs={crumbs} />
         <div className="flex flex-wrap container content-center gap-4 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-10 items-center ">
