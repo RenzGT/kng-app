@@ -1,4 +1,3 @@
-import { CTAButton } from "@/components/CTAButton";
 import { Link } from "react-router-dom";
 
 const apparelCollection = [
