@@ -78,7 +78,7 @@ export const CollectionSection = () => {
                       <p className="text-center text-4xl md:text-5xl font-semibold uppercase w-full md:text-start">
                         {item.title}
                       </p>
-                      <p className="text-center text-sm md:text-xl w-full md:text-justify">
+                      <p className="text-center text-sm md:base w-full md:text-justify">
                         {item.description}
                       </p>
                     </div>
