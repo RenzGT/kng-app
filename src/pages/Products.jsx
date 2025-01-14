@@ -15,7 +15,6 @@ import { useState, useEffect } from "react";
 import { FilterBox } from "@/components/FilterBox";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { useParams } from "react-router";
-import { CTAButton } from "@/components/CTAButton";
 import { Link, useLocation } from "react-router-dom";
 import { filters } from "@/constants/Filters";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -36,62 +35,61 @@ export const Products = () => {
   const { category, searchTerm } = useParams();
 
   const getProducts = async () => {
-    const result = await FetchProducts();
-    let filteredProducts = result;
+    setIsLoading(true);
+    try {
+      const result = await FetchProducts();
+      let filteredProducts = result;
 
-    if (category) {
-      filteredProducts = filteredProducts.filter((product) => product.category === category);
+      if (category) {
+        filteredProducts = filteredProducts.filter((product) => product.category === category);
+      }
+
+      if (searchTerm) {
+        filteredProducts = filteredProducts.filter(
+          (product) =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.id.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      if (selectedFilters.length > 0 && !selectedFilters.includes("all")) {
+        filteredProducts = filteredProducts.filter((product) =>
+          selectedFilters.includes(product.type)
+        );
+      }
+
+      switch (sortContent) {
+        case "alphabet-asc":
+          filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case "alphabet-desc":
+          filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+        case "price-asc":
+          filteredProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+          break;
+        case "price-desc":
+          filteredProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+          break;
+        default:
+          break;
+      }
+
+      setProductTotal(filteredProducts.length);
+
+      const startIndex = (currentPage - 1) * productsPerPage;
+      const paginatedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
+
+      setProducts(paginatedProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false);
     }
-
-    if (searchTerm) {
-      filteredProducts = filteredProducts.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.id.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    if (selectedFilters.length > 0 && !selectedFilters.includes("all")) {
-      filteredProducts = filteredProducts.filter((product) =>
-        selectedFilters.includes(product.type)
-      );
-    }
-
-    switch (sortContent) {
-      case "alphabet-asc":
-        filteredProducts = filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case "alphabet-desc":
-        filteredProducts = filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-      case "price-asc":
-        filteredProducts = filteredProducts.sort((a, b) => {
-          return parseFloat(a.price) - parseFloat(b.price);
-        });
-        break;
-      case "price-desc":
-        filteredProducts = filteredProducts.sort((a, b) => {
-          return parseFloat(b.price) - parseFloat(a.price);
-        });
-        break;
-      default:
-        break;
-    }
-
-    setProductTotal(filteredProducts.length);
-
-    const startIndex = (currentPage - 1) * productsPerPage;
-    const paginatedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
-
-    setProducts(paginatedProducts);
   };
 
   useEffect(() => {
-    setIsLoading(true);
     getProducts();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
   }, [selectedFilters, currentPage, category, searchTerm, sortContent]);
 
   useEffect(() => {
