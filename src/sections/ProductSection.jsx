@@ -61,6 +61,7 @@ export const ProductSection = () => {
             colors={product.hexcode}
             image={`/images/products/${product.images[0]}`}
             link={`/products/${product.category}/${product.id}`}
+            style={{ wrapper: "max-w-[300px]" }}
           />
         ))}
       </div>

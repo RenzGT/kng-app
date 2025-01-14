@@ -3,20 +3,12 @@ import { Navigation } from "@/components/Navigation";
 import FetchProducts from "@/constants/FetchProducts";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Autoplay from "embla-carousel-autoplay";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
@@ -53,7 +45,7 @@ export const ProductDetails = () => {
 
         const filterRelatedProducts = shuffledProducts
           .filter((prod) => prod.category === category && prod.id !== id)
-          .slice(0, 8);
+          .slice(0, 4);
 
         setRelatedProducts(filterRelatedProducts);
       } catch (error) {
@@ -185,44 +177,26 @@ export const ProductDetails = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-start w-full container p-5 gap-4">
+          <div className="flex flex-wrap justify-start w-full container p-5 gap-4">
             <h4 className="text-lg font-semibold uppercase">You might also like</h4>
-            <Carousel
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              plugins={[
-                Autoplay({
-                  delay: 3000,
-                  stopOnInteraction: false,
-                }),
-              ]}
-            >
-              <CarouselContent>
-                {relatedProducts.length > 0 ? (
-                  relatedProducts.map((relatedProduct) => (
-                    <CarouselItem key={relatedProduct.id} className="w-[300px]">
-                      <ProductCard
-                        id={relatedProduct.id}
-                        label={relatedProduct.name}
-                        category={relatedProduct.category}
-                        price={relatedProduct.price}
-                        colors={relatedProduct.colors}
-                        image={`/images/products/${relatedProduct.images[0]}`}
-                        link={`/products/${relatedProduct.category}/${relatedProduct.id}`}
-                      />
-                    </CarouselItem>
-                  ))
-                ) : (
-                  <div>No related products available</div>
-                )}
-              </CarouselContent>
-              <div className="flex gap-4 py-10 w-full justify-end">
-                <CarouselPrevious />
-                <CarouselNext />
-              </div>
-            </Carousel>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-4">
+              {relatedProducts.length > 0 ? (
+                relatedProducts.map((relatedProduct) => (
+                  <ProductCard
+                    id={relatedProduct.id}
+                    label={relatedProduct.name}
+                    category={relatedProduct.category}
+                    price={relatedProduct.price}
+                    colors={relatedProduct.colors}
+                    image={`/images/products/${relatedProduct.images[0]}`}
+                    link={`/products/${relatedProduct.category}/${relatedProduct.id}`}
+                    style={{ wrapper: "max-w-[350px]" }}
+                  />
+                ))
+              ) : (
+                <div>No related products available</div>
+              )}
+            </div>
           </div>
         </div>
       </div>

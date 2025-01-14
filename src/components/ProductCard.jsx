@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-export const ProductCard = ({ id, label, category, price, colors, image, link }) => {
+export const ProductCard = ({ id, label, category, price, colors, image, link, style = {} }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Link
       to={link}
-      className="flex flex-wrap flex-col max-w-[300px]"
+      className={`flex flex-wrap flex-col w-full ${style.wrapper || ""}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
