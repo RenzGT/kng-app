@@ -31,24 +31,25 @@ export const ApparelCollectionSection = () => {
       <div className="flex flex-wrap grid grid-cols-1 md:grid-cols-3 max-w-[1200px] gap-4">
         {apparelCollection.map((category, index) => {
           return (
-            <Link
+            <div
               key={index}
-              to={category.link}
               className="flex items-center justify-center w-full min-h-[400px] group"
             >
               <div className="flex flex-col items-center w-full max-w-[400px] overflow-hidden">
-                <div className="w-[400px] h-[400px] overflow-hidden">
+                <Link to={category.link} className="w-[400px] h-[400px] overflow-hidden">
                   <img
                     src={category.image}
                     alt={category.title}
                     className="transition-transform duration-500 group-hover:scale-110 w-full h-full object-cover"
                   />
-                </div>
+                </Link>
                 <div className="flex flex-col w-full items-center p-5">
-                  <h2 className="text-lg font-semibold">{category.title}</h2>
+                  <Link to={category.link} className="text-lg font-semibold">
+                    {category.title}
+                  </Link>
                 </div>
               </div>
-            </Link>
+            </div>
           );
         })}
       </div>
