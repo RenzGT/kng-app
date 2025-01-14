@@ -5,6 +5,7 @@ export const ProductCard = ({ id, label, category, price, colors, image, link, s
   return (
     <Link
       to={link}
+      onClick={() => (window.location.href = link)}
       className={`flex flex-wrap flex-col w-full ${style.wrapper || ""}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
